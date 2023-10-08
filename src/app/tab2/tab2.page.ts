@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { SenhasService } from '../services/senhas.service';
+
 
 @Component({
   selector: 'app-tab2',
@@ -6,7 +8,9 @@ import { Component } from '@angular/core';
   styleUrls: ['tab2.page.scss']
 })
 export class Tab2Page {
-
-  constructor() {}
-
+  public senhaAtual: string = '';
+  constructor(private senhasService: SenhasService) {}
+  public chamarProximo(): void {
+    this.senhaAtual = this.senhasService.chamarProximoNaFila();
+  }
 }
