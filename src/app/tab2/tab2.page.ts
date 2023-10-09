@@ -11,6 +11,9 @@ export class Tab2Page {
   public senhaAtual: string = '';
   constructor(private senhasService: SenhasService) {}
   public chamarProximo(): void {
+    console.log('Método chamarProximo foi chamado');
     this.senhaAtual = this.senhasService.chamarProximoNaFila();
+    console.log('Senha atual:', this.senhaAtual);
   }
 }
+
