@@ -13,8 +13,8 @@ export class SenhasService {
   
   public senhasArray: { [key: string]: string[] } = { SG: [], SP: [], SE: [] };
   
-  public tempoMedioAtendimento: { [key: string]: number } = { SG: 1, SP: 0.67 };
-  // tempo 1 minuto e o outro de segundos 
+  public tempoMedioAtendimento: { [key: string]: number } = { SG: 0.05, SP: 0.010 };
+  
   constructor() { }
 
   somaGeral(): void {
@@ -56,17 +56,34 @@ export class SenhasService {
   }
 
   chamarProximoNaFila(): string {
-    if (this.senhasArray['SG'].length > 0) {
-      return this.senhasArray['SG'].shift();
-    } else if (this.senhasArray['SP'].length > 0) {
-      return this.senhasArray['SP'].shift();
+    let proximaSenha = '';
+    if (this.senhasArray['SP'].length > 0) {
+      proximaSenha = this.senhasArray['SP'][0];
+    } else if (this.senhasArray['SG'].length > 0) {
+      proximaSenha = this.senhasArray['SG'][0];
+    } else if (this.senhasArray['SE'].length > 0) {
+      proximaSenha = this.senhasArray['SE'][0];
     }
-    return '';
+    
+    console.log('Próxima senha:', proximaSenha);
+    return proximaSenha;
   }
 
-  calcularTempoMedioAtendimento(tipoSenha: string): number {
-    return this.senhasArray[tipoSenha].length * this.tempoMedioAtendimento[tipoSenha];
+concluirAtendimento(tipoSenha: string): void {
+    if (tipoSenha == 'SP' && this.senhasArray['SP'].length > 0) {
+      this.senhasArray['SP'].shift();
+    } else if (tipoSenha == 'SG' && this.senhasArray['SG'].length > 0) {
+      this.senhasArray['SG'].shift();
+    } else if (tipoSenha == 'SE' && this.senhasArray['SE'].length > 0) {
+      this.senhasArray['SE'].shift();
+    }
+
+    console.log('Atendimento concluído para a senha', tipoSenha);
   }
+
+calcularTempoMedioAtendimento(tipoSenha: string): number {
+    return this.senhasArray[tipoSenha].length * this.tempoMedioAtendimento[tipoSenha];
+}
 }
 
 
