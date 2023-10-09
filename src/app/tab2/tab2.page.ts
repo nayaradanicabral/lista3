@@ -13,7 +13,7 @@ export class Tab2Page {
   public chamarProximo(): void {
     console.log('Método chamarProximo foi chamado');
     this.senhaAtual = this.senhasService.chamarProximoNaFila();
-    console.log('Senha atual:', this.senhaAtual);
+    console.log('Senha atual :', this.senhaAtual);
   }
 }
 
